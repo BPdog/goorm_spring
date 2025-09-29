@@ -12,7 +12,7 @@
           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- @Controller 스캔 -->
-    <context:component-scan base-package="com.mycompany.dailyMission" />
+    <context:component-scan base-package="com.mycompany.*" />
 
     <!-- Spring MVC 기본 설정 -->
     <mvc:annotation-driven />

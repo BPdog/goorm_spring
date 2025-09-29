@@ -1,4 +1,4 @@
-package com.mycompany.dailyMission.domain;
+package com.mycompany.daily0925.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
