@@ -131,4 +131,54 @@ class ItemControllerTest {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
+    @Test
+    @DisplayName("ID로 상품 조회 실패 - 잘못된 ID 형식으로 400 반환")
+    void getItemById_InvalidId_Returns400() throws Exception {
+        // when & then
+        mockMvc.perform(get("/api/items/invalid-id"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    @DisplayName("상품 등록 실패 - 서비스 레이어 예외로 500 반환")
+    void createItem_ServiceError_Returns500() throws Exception {
+        // given
+        Item newItem = Item.builder().name("새 상품").price(15000).stock(5).build();
+        when(itemService.createItem(any(Item.class))).thenThrow(new RuntimeException("Database connection failed"));
+
+        // when & then
+        mockMvc.perform(post("/api/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newItem)))
+                .andDo(print())
+                .andExpect(status().isInternalServerError());
+    }
+    @Test
+    @DisplayName("상품 등록 실패 - 잘못된 요청 데이터로 400 반환")
+    void createItem_InvalidRequest_Returns400() throws Exception {
+        // given
+        // price를 잘못된 타입으로 설정
+        String invalidItemJson = "{\"name\":\"잘못된 상품\"," +
+                                    "\"price\":\"invalid-price\"," +
+                                    "\"stock\":-1}";
+
+
+        // when & then
+        mockMvc.perform(post("/api/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidItemJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    @DisplayName("상품 삭제 실패 - 잘못된 ID 형식으로 400 반환")
+    void deleteItem_InvalidId_Returns400() throws Exception {
+        // when & then
+        mockMvc.perform(delete("/api/items/invalid-id"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+
+
 }
