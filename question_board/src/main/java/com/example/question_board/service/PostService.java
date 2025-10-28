@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
@@ -39,8 +38,7 @@ public class PostService {
                 .email(request.getEmail())
                 .title(request.getTitle())
                 .content(request.getContent())
-                .status(PostStatus.POSTED)
-                .postedAt(LocalDateTime.now())
+                .status(PostStatus.ACTIVE)
                 .build();
 
         Post savedPost = postRepository.save(post);

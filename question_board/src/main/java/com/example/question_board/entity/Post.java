@@ -3,7 +3,6 @@ package com.example.question_board.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +38,6 @@ public class Post extends BaseTimeEntity{
     private String title;
 
     private String content;
-
-    @Column(name = "posted_at")
-    private LocalDateTime postedAt;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replyList = new ArrayList<>();

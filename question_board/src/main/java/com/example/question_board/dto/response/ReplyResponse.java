@@ -24,7 +24,7 @@ public class ReplyResponse {
                 .id(reply.getId())
                 .userName(reply.getUserName())
                 .content(reply.getContent())
-                .createdAt(reply.getRepliedAt())
+                .createdAt(reply.getCreatedAt())
                 .build();
     }
 }

@@ -1,7 +1,9 @@
 package com.example.question_board.entity;
 
+import com.example.question_board.entity.status.ReplyStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -22,17 +24,21 @@ public class Reply {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "replied_at")
-    private LocalDateTime repliedAt;
-
     @Column(name = "user_name")
     private String userName;
 
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ReplyStatus status;
 
     private String title;
 
     private String content;
+
+    @CreatedDate
+    @Column(name = "replied_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+
 }

@@ -32,7 +32,7 @@ public class PostResponse {
                 .boardName(post.getBoard().getBoardName())
                 .userName(post.getUserName())
                 .title(post.getTitle())
-                .createdAt(post.getPostedAt())
+                .createdAt(post.getCreatedAt())
                 .build();
     }
 
@@ -44,7 +44,7 @@ public class PostResponse {
                 .userName(post.getUserName())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .createdAt(post.getPostedAt())
+                .createdAt(post.getCreatedAt())
                 .replies(post.getReplyList().stream()
                         .map(ReplyResponse::from)
                         .collect(Collectors.toList()))

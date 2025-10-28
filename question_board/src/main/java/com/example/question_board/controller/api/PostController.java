@@ -4,8 +4,10 @@ import com.example.question_board.dto.request.PostDeleteRequest;
 import com.example.question_board.dto.request.PostRequest;
 import com.example.question_board.dto.response.PostResponse;
 import com.example.question_board.service.PostService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,7 +33,6 @@ public class PostController {
     }
 
     // 게시글 상세 조회
-    @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPost(@PathVariable("id") Long postId) {
         PostResponse response = postService.getPost(postId);
         return ResponseEntity.ok(response);
@@ -41,7 +42,7 @@ public class PostController {
     @GetMapping("/paged")
     public ResponseEntity<Page<PostResponse>> getPostsByBoard(
             @RequestParam("boardId") Long boardId,
-            @PageableDefault(size = 10, sort = "postedAt", direction = Sort.Direction.DESC) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<PostResponse> response = postService.getPostsByBoard(boardId, pageable);
         return ResponseEntity.ok(response);
     }
@@ -50,7 +51,7 @@ public class PostController {
     @GetMapping("/search")
     public ResponseEntity<Page<PostResponse>> searchPosts(
             @RequestParam("keyword") String keyword,
-            @PageableDefault(size = 10, sort = "postedAt", direction = Sort.Direction.DESC) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<PostResponse> response = postService.searchPosts(keyword, pageable);
         return ResponseEntity.ok(response);
     }

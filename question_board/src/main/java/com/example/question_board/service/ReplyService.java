@@ -4,6 +4,7 @@ import com.example.question_board.dto.request.ReplyRequest;
 import com.example.question_board.dto.response.ReplyResponse;
 import com.example.question_board.entity.Post;
 import com.example.question_board.entity.Reply;
+import com.example.question_board.entity.status.ReplyStatus;
 import com.example.question_board.repository.PostRepository;
 import com.example.question_board.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,8 +35,7 @@ public class ReplyService {
                 .userName(request.getUserName())
                 .password(passwordEncoder.encode(request.getPassword())) // 비밀번호 암호화
                 .content(request.getContent())
-                .status("POSTED")
-                .repliedAt(LocalDateTime.now())
+                .status(ReplyStatus.ACTIVE)
                 .build();
 
         Reply savedReply = replyRepository.save(reply);
