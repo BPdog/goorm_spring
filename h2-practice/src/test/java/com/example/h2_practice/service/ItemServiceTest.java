@@ -78,7 +78,7 @@ public class ItemServiceTest {
 
         assertThat(result1).isTrue();
         then(itemRepository).should(times(1)).existsById(id);
-        then(itemRepository).should(times(1)).deleteById(id);;
+        then(itemRepository).should(times(1)).deleteById(id);
     }
 
     @Test
